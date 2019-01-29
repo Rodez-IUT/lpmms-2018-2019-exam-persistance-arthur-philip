@@ -17,10 +17,12 @@ public class Project {
 
     private String description;
 
-
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Enterprise enterprise;
+    
+    @Version
+    private Long version = 0L;
 
     public Project() {}
 
@@ -56,4 +58,12 @@ public class Project {
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
     }
+
+	public Long getVersion() {
+		return version;
+	}
+	
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 }

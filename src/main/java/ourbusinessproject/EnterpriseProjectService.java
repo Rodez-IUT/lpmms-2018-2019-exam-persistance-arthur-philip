@@ -16,18 +16,17 @@ public class EnterpriseProjectService {
     private EntityManager entityManager;
 
     public Project saveProjectForEnterprise(Project project, Enterprise enterprise) {
+    	// TODO supprimer le projet dans son ancienne entreprise.
         saveEnterprise(enterprise);
         project.setEnterprise(enterprise);
         enterprise.addProject(project);
-        entityManager.persist(project);
-        entityManager.flush();
-        return project;
+        Project newProject = entityManager.merge(project);
+        return newProject;
     }
 
     public Enterprise saveEnterprise(Enterprise enterprise) {
-        entityManager.persist(enterprise);
-        entityManager.flush();
-        return enterprise;
+    	Enterprise newEnterprise = entityManager.merge(enterprise);
+        return newEnterprise;
     }
 
     public Project findProjectById(Long id) {
